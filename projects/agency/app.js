@@ -16,11 +16,21 @@ app.use("/home", home);
 
 const admin = require("./routers/adminRouter");
 
-app.use("/admin", admin);
+const { verifyAdmin } = require("./middlewares/adminWare");
+
+app.use("/admin", verifyAdmin, admin);
+
+const authSignup = require("./routers/signupRouter");
+
+app.use("/auth/signup", authSignup);
 
 const agent = require("./routers/agentRouter");
 
 app.use("/agent", agent);
+
+const authLogin = require("./routers/loginRouter");
+
+app.use("/auth/login", authLogin);
 
 const dbUrl =
   "mongodb+srv://iliyas:iliyas@agencydb.hdaek8r.mongodb.net/agencydb?retryWrites=true&w=majority";

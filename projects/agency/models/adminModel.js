@@ -24,6 +24,12 @@ const adminSchema = new Schema(
       type: String,
       required: true,
     },
+    password: {
+      type: String,
+    },
+    token: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

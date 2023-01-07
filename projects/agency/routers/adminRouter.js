@@ -1,16 +1,14 @@
 const express = require("express");
 
 const {
-  createAdmin,
   getAdmins,
   getAdmin,
   updateAdmin,
   deleteAdmin,
-} = require("../views/adminView");
+} = require("../views/admin/crud");
 
 const router = express.Router();
 
-router.route("/create/").post(createAdmin);
 router.route("/getAll/").get(getAdmins);
 router.route("/get/").get(getAdmin);
 router.route("/update/").post(updateAdmin);

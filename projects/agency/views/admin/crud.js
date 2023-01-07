@@ -1,27 +1,4 @@
-const { Admin } = require("../models/adminModel");
-
-const createAdmin = async (req, res) => {
-  let { first_name, last_name, email, phone_number, address } = req.body;
-  if (!(first_name && last_name && email && phone_number && address)) {
-    res.status(400).json({ message: "All fields are required" });
-  } else {
-    const admin = await new Admin({
-      first_name: first_name,
-      last_name: last_name,
-      email: email,
-      phone_number: phone_number,
-      address: address,
-    });
-    admin
-      .save()
-      .then(() => {
-        res.status(200).json({ message: "created" });
-      })
-      .catch((err) => {
-        res.status(400).json({ message: err.message });
-      });
-  }
-};
+const { Admin } = require("../../models/adminModel");
 
 const getAdmins = async (req, res) => {
   const admins = await Admin.find()
@@ -68,4 +45,4 @@ const deleteAdmin = async (req, res) => {
       res.status(400).json({ message: error.message });
     });
 };
-module.exports = { createAdmin, getAdmins, getAdmin, updateAdmin, deleteAdmin };
+module.exports = { getAdmins, getAdmin, updateAdmin, deleteAdmin };
