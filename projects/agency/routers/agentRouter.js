@@ -4,7 +4,7 @@ const {
   getAgent,
   updateAgent,
   deleteAgent,
-} = require("../views/agentView");
+} = require("../views/agents/crud");
 
 const express = require("express");
 

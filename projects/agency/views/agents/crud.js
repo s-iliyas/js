@@ -1,4 +1,4 @@
-const { Agent } = require("../models/agentModel");
+const { Agent } = require("../../models/agentModel");
 
 const createAgent = async (req, res) => {
   const { full_name, email, phone_number, address } = req.body;

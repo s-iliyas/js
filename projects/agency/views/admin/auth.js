@@ -69,8 +69,25 @@ const adminSignup = async (req, res) => {
   }
 };
 
-  const adminLogin = (req, res) => {
-    res.status(200).json({ message: "Works" });
-  };
+const adminLogin = async (req, res) => {
+  const { email, password } = req.body;
+  if (!(email && password)) {
+    res.status(400).json({ message: "Fill all fields" });
+  } else {
+    const admin = await Admin.findOne({ email: email });
+    if (admin && (await encrypt.compare(password, admin.password))) {
+      const token = await jwt.sign(
+        { user_email: email, toke_type: "access" },
+        secret,
+        { expiresIn: jwtExpireTime.concat("ms") }
+      );
+      admin.token = token;
+      admin.save();
+      res.status(200).json({ token: token, type: "access" });
+    } else {
+      res.status(200).json({ message: "Invalid credentials" });
+    }
+  }
+};
 
 module.exports = { adminSignup, adminLogin };

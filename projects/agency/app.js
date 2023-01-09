@@ -10,9 +10,7 @@ app.use(morgan("dev"));
 
 const mongoose = require("mongoose");
 
-const home = require("./routers/homerouter");
 
-app.use("/home", home);
 
 const admin = require("./routers/adminRouter");
 
