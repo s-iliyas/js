@@ -1,7 +1,7 @@
 const encrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const secret = "asldhaiudhuieqwjdbnjkasnx";
-const jwtExpireTime = "1000";
+const jwtExpireTime = "60000";
 
 const verifyAdmin = async (req, res, next) => {
   const token =
@@ -14,10 +14,11 @@ const verifyAdmin = async (req, res, next) => {
       if (!decoded_token) {
         res.status(400).json({ message: "Invalid token" });
       } else {
-        const time_diff = String(
+        const time_diff = Number(
           (((Date.now() / 1000) | 0) - decoded_token.exp) * 1000
         );
-        if (jwtExpireTime > time_diff) {
+        console.log(time_diff);
+        if (Number(jwtExpireTime) > time_diff) {
           req.user = decoded_token;
           return next();
         } else {

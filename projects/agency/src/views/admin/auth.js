@@ -74,7 +74,14 @@ const adminLogin = async (req, res) => {
   if (!(email && password)) {
     res.status(400).json({ message: "Fill all fields" });
   } else {
-    const admin = await Admin.findOne({ email: email });
+    const admin = await Admin.findOne({ email: email })
+      .then((result) => {
+        return result;
+      })
+      .catch((error) => {
+        res.status(400).json({ message: error.message });
+      });
+    console.log(admin);
     if (admin && (await encrypt.compare(password, admin.password))) {
       const token = await jwt.sign(
         { user_email: email, toke_type: "access" },
